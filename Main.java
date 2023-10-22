@@ -73,58 +73,65 @@ public class Main {
         notebooks.add(new Notebook("Model4", 16, 1024, "Linux", "Grey"));
         notebooks.add(new Notebook("Model5", 32, 2048, "MacOS", "SpaceGrey"));
 
-        
         Scanner scanner = new Scanner(System.in);
         Map<String, Object> filters = new HashMap<>();
 
         System.out.println("Введите цифру, соответствующую критерию фильтрации:");
+        System.out.println();
+        System.out.println("0 - Показать результат поиска");
         System.out.println("1 - ОЗУ");
         System.out.println("2 - Объем ЖД");
         System.out.println("3 - Операционная система");
         System.out.println("4 - Цвет");
 
-        int criterion = scanner.nextInt();
-        switch (criterion) {
-            case 1:
-                System.out.println("Введите минимальный объем ОЗУ:");
-                int ram = scanner.nextInt();
-                filters.put("ram", ram);
-                break;
-            case 2:
-                System.out.println("Введите минимальный объем ЖД:");
-                int storage = scanner.nextInt();
-                filters.put("storage", storage);
-                break;
-            case 3:
-                System.out.println("Введите операционную систему:");
-                scanner.nextLine(); 
-                String os = scanner.nextLine();
-                filters.put("os", os);
-                break;
-            case 4:
-                System.out.println("Введите цвет:");
-                scanner.nextLine();
-                String color = scanner.nextLine();
-                filters.put("color", color);
-                break;
-            default:
-                System.out.println("Неверный критерий фильтрации.");
-                break;
+
+        while (true) {
+            int criterion = scanner.nextInt();
+            if (criterion == 0) {
+                break; // Выход из цикла при вводе 0
+            }
+            switch (criterion) {
+                case 1:
+                    System.out.println("Введите минимальный объем ОЗУ:");
+                    int ram = scanner.nextInt();
+                    filters.put("ram", ram);
+                    break;
+                case 2:
+                    System.out.println("Введите минимальный объем ЖД:");
+                    int storage = scanner.nextInt();
+                    filters.put("storage", storage);
+                    break;
+                case 3:
+                    System.out.println("Введите операционную систему:");
+                    scanner.nextLine(); 
+                    String os = scanner.nextLine();
+                    filters.put("os", os);
+                    break;
+                case 4:
+                    System.out.println("Введите цвет:");
+                    scanner.nextLine();
+                    String color = scanner.nextLine();
+                    filters.put("color", color);
+                    break;
+                default:
+                    System.out.println("Неверный критерий фильтрации.");
+                    break;
+            }
         }
         
 
        // Фильтрация ноутбуков и вывод результатов
-Set<Notebook> filteredNotebooks = Notebook.filterNotebooks(notebooks, filters);
-System.out.println("Результаты фильтрации:");
-for (Notebook notebook : filteredNotebooks) {
-    System.out.println("Модель: " + notebook.getModel());
-    System.out.println("ОЗУ: " + notebook.getRam() + "GB");
-    System.out.println("Объем ЖД: " + notebook.getStorage() + "GB");
-    System.out.println("ОС: " + notebook.getOs());
-    System.out.println("Цвет: " + notebook.getColor());
-    System.out.println();
-}
+ Set<Notebook> filteredNotebooks = Notebook.filterNotebooks(notebooks, filters);
+        System.out.println("Результаты фильтрации:");
+        for (Notebook notebook : filteredNotebooks) {
+            System.out.println("Модель: " + notebook.getModel());
+            System.out.println("ОЗУ: " + notebook.getRam() + "GB");
+            System.out.println("Объем ЖД: " + notebook.getStorage() + "GB");
+            System.out.println("ОС: " + notebook.getOs());
+            System.out.println("Цвет: " + notebook.getColor());
+            System.out.println();
+        }
 
-scanner.close();
+        scanner.close();
     }
 }
